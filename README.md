@@ -1,52 +1,28 @@
 # Swing Calls
 
-Sierra Chart ACSIL port of the TradingView **SWING CALLS** / **SMA call buy/sale** study (Pine v4, nicks1008).
+Sierra Chart port of nicks1008's TradingView SWING CALLS.
 
-Overlay study: colored SMA, B/S swing entries on the SMA/EMA cross, and RSI reversal triangles.
+50 SMA (colored), B/S on the SMA vs 5 EMA cross, triangles when RSI leaves 80/20.
 
-## Install
+## Build
 
-1. Copy `SwingCalls.cpp` into your Sierra Chart `ACS_Source` folder, e.g.  
-   `C:\SierraChart\ACS_Source\SwingCalls.cpp`
-2. In Sierra Chart: **Analysis → Build Custom Studies DLL**
-3. **Analysis → Studies → Add Custom Study → Swing Calls**
-4. It overlays on the main price graph automatically.
+Copy `SwingCalls.cpp` into `ACS_Source` and run **Analysis → Build Custom Studies DLL**.  
+Then **Add Custom Study → Swing Calls**. It sits on the price graph.
 
 ## Signals
 
-| Marker | Rule |
-|---|---|
-| **B** (below bar) | SMA crosses under the EMA **and** `high > SMA` |
-| **S** (above bar) | SMA crosses over the EMA **and** `open > close` (down bar) |
-| Triangle down | RSI crosses under the overbought level (default 80) |
-| Triangle up | RSI crosses over the oversold level (default 20) |
+- **B** — SMA crosses under the EMA and the bar high is still above the SMA
+- **S** — SMA crosses over the EMA on a down bar (`open > close`)
+- **▼** — RSI crosses under 80
+- **▲** — RSI crosses over 20
 
-SMA color:
-
-- **Yellow** — RSI is extreme (≥ 85 or ≤ 15), or the bar overlaps the SMA
-- **Lime** — whole bar is above the SMA (`low > SMA`)
-- **Red** — whole bar is below the SMA (`high < SMA`)
-
-Defaults match the original Pine: EMA 5, SMA 50, RSI 14 (Wilders).
+SMA color: lime if the whole bar is above it, red if the whole bar is below, yellow if they overlap or RSI is ≥85 / ≤15.
 
 ## Alerts
 
-- **Alert 1** — Possible Reversal on Swing Signal Alert (RSI cross)
-- **Alert 2** — Swing Signal Entry Alert (B / S)
+1 = RSI reversal  
+2 = B or S
 
-Set sounds on the study **Alerts** tab.
+Study formulas: `SG4 <> 0` buy, `SG5 <> 0` sell, `SG6 <> 0` RSI down, `SG7 <> 0` RSI up.
 
-Formula alerts (replace `ID1` with this study's ID):
-
-```
-ID1.SG4 <> 0    // Buy call
-ID1.SG5 <> 0    // Sell call
-ID1.SG6 <> 0    // RSI bearish
-ID1.SG7 <> 0    // RSI bullish
-```
-
-RSI is calculated but not drawn on the overlay so it does not distort the price scale. Read it in **Window → Chart Values**.
-
-## License
-
-Mozilla Public License 2.0. Original TradingView study © nicks1008.
+MPL 2.0
