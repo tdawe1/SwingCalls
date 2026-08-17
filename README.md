@@ -1,7 +1,5 @@
 # Swing Calls
 
-Sierra Chart port of nicks1008's TradingView SWING CALLS.
-
 50 SMA (colored), B/S on the SMA vs 5 EMA cross, triangles when RSI leaves 80/20.
 
 ## Build
@@ -24,5 +22,3 @@ SMA color: lime if the whole bar is above it, red if the whole bar is below, yel
 2 = B or S
 
 Study formulas: `SG4 <> 0` buy, `SG5 <> 0` sell, `SG6 <> 0` RSI down, `SG7 <> 0` RSI up.
-
-MPL 2.0
